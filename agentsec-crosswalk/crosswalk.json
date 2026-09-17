@@ -1,0 +1,49 @@
+{
+  "crosswalk": [
+    {
+      "scenario_id": "UTI-001",
+      "threat_category": "unauthorized_tool_invocation",
+      "owasp_control_id": "ASI06",
+      "nist_ai_rmf_functions": [
+        "Govern",
+        "Manage"
+      ]
+    },
+    {
+      "scenario_id": "UTI-002",
+      "threat_category": "unauthorized_tool_invocation",
+      "owasp_control_id": "ASI06",
+      "nist_ai_rmf_functions": [
+        "Govern",
+        "Manage"
+      ]
+    },
+    {
+      "scenario_id": "PI-001",
+      "threat_category": "prompt_injection",
+      "owasp_control_id": "ASI01",
+      "nist_ai_rmf_functions": [
+        "Map",
+        "Measure"
+      ]
+    },
+    {
+      "scenario_id": "EX-001",
+      "threat_category": "prompt_injection",
+      "owasp_control_id": "ASI02",
+      "nist_ai_rmf_functions": [
+        "Map",
+        "Measure"
+      ]
+    },
+    {
+      "scenario_id": "PE-001",
+      "threat_category": "unauthorized_tool_invocation",
+      "owasp_control_id": "ASI06",
+      "nist_ai_rmf_functions": [
+        "Govern",
+        "Manage"
+      ]
+    }
+  ]
+}
