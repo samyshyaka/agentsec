@@ -1,0 +1,39 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout agentsec-crosswalk
+        uses: actions/checkout@v4
+        with:
+          path: agentsec-crosswalk
+
+      - name: Checkout agentsec-bench
+        uses: actions/checkout@v4
+        with:
+          repository: samyshyaka/agentsec-bench
+          path: agentsec-bench
+
+      - name: Checkout agentguard
+        uses: actions/checkout@v4
+        with:
+          repository: samyshyaka/agentguard
+          path: agentguard
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Install dependencies
+        working-directory: agentsec-crosswalk
+        run: uv sync
+
+      - name: Run tests
+        working-directory: agentsec-crosswalk
+        run: uv run pytest -v
