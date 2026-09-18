@@ -53,6 +53,15 @@
         "Govern",
         "Manage"
       ]
+    },
+    {
+      "scenario_id": "RA-001",
+      "threat_category": "rogue_agent",
+      "owasp_control_id": "ASI10",
+      "nist_ai_rmf_functions": [
+        "Govern",
+        "Manage"
+      ]
     }
   ]
 }

@@ -4,6 +4,7 @@ from agentsec_bench.scenarios_exfiltration import CustomerDataExfiltrationScenar
 from agentsec_crosswalk.mapping import crosswalk_entry
 
 from agentsec_bench.scenarios_code_execution import UnexpectedCodeExecutionScenario
+from agentsec_bench.scenarios_rogue import RogueAgentScenario
 
 
 def test_crosswalk_entry_pulls_real_scenario_metadata():
@@ -39,4 +40,12 @@ def test_crosswalk_entry_for_code_execution_scenario():
     assert entry["scenario_id"] == "CE-001"
     assert entry["owasp_control_id"] == "ASI05"
     assert entry["threat_category"] == ThreatCategory.UNEXPECTED_CODE_EXECUTION.value
+    assert "Govern" in entry["nist_ai_rmf_functions"]
+
+def test_crosswalk_entry_for_rogue_agent_scenario():
+    scenario = RogueAgentScenario()
+    entry = crosswalk_entry(scenario)
+    assert entry["scenario_id"] == "RA-001"
+    assert entry["owasp_control_id"] == "ASI10"
+    assert entry["threat_category"] == ThreatCategory.ROGUE_AGENT.value
     assert "Govern" in entry["nist_ai_rmf_functions"]
