@@ -27,6 +27,12 @@ jobs:
           repository: samyshyaka/agentguard
           path: agentguard
 
+      - name: Checkout agenttrace
+        uses: actions/checkout@v4
+        with:
+          repository: samyshyaka/agenttrace
+          path: AgentTrace
+
       - name: Install uv
         uses: astral-sh/setup-uv@v3
 
