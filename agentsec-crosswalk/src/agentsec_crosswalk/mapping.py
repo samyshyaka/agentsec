@@ -1,14 +1,12 @@
 from agentsec_bench.types import ThreatCategory
 
-# NIST AI RMF (1.0) core functions relevant to each threat category.
-# Note: AgentSec-Bench's ThreatCategory enum currently has two values
-# (PROMPT_INJECTION, UNAUTHORIZED_TOOL_INVOCATION); scenarios covering
-# data exfiltration and privilege escalation are tagged as
-# UNAUTHORIZED_TOOL_INVOCATION in the actual code. This is a first-pass
-# mapping, not an exhaustive/authoritative compliance mapping.
+# First-pass mapping from AgentSec-Bench threat categories to NIST AI RMF
+# functions. Not an exhaustive/authoritative compliance mapping.
 NIST_AI_RMF_MAPPING = {
     ThreatCategory.UNAUTHORIZED_TOOL_INVOCATION: ["Govern", "Manage"],
     ThreatCategory.PROMPT_INJECTION: ["Map", "Measure"],
+    ThreatCategory.DATA_EXFILTRATION: ["Measure", "Manage"],
+    ThreatCategory.PRIVILEGE_ESCALATION: ["Govern", "Manage"],
 }
 
 

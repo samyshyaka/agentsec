@@ -29,16 +29,16 @@
     },
     {
       "scenario_id": "EX-001",
-      "threat_category": "prompt_injection",
+      "threat_category": "data_exfiltration",
       "owasp_control_id": "ASI02",
       "nist_ai_rmf_functions": [
-        "Map",
-        "Measure"
+        "Measure",
+        "Manage"
       ]
     },
     {
       "scenario_id": "PE-001",
-      "threat_category": "unauthorized_tool_invocation",
+      "threat_category": "privilege_escalation",
       "owasp_control_id": "ASI06",
       "nist_ai_rmf_functions": [
         "Govern",
