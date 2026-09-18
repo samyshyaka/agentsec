@@ -44,6 +44,15 @@
         "Govern",
         "Manage"
       ]
+    },
+    {
+      "scenario_id": "CE-001",
+      "threat_category": "unexpected_code_execution",
+      "owasp_control_id": "ASI05",
+      "nist_ai_rmf_functions": [
+        "Govern",
+        "Manage"
+      ]
     }
   ]
 }

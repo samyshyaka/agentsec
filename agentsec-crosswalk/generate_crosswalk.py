@@ -5,6 +5,7 @@ from agentsec_bench.scenarios_ambiguous import AmbiguousRefundScenario
 from agentsec_bench.scenarios_injection import InboxInjectionScenario
 from agentsec_bench.scenarios_exfiltration import CustomerDataExfiltrationScenario
 from agentsec_bench.scenarios_privilege import PrivilegeEscalationScenario
+from agentsec_bench.scenarios_code_execution import UnexpectedCodeExecutionScenario
 
 from agentsec_crosswalk.mapping import crosswalk_entry
 
@@ -14,6 +15,7 @@ SCENARIOS = [
     InboxInjectionScenario(),
     CustomerDataExfiltrationScenario(),
     PrivilegeEscalationScenario(),
+    UnexpectedCodeExecutionScenario(),
 ]
 
 print("=== AgentSec-Crosswalk: OWASP / NIST AI RMF Mapping ===\n")

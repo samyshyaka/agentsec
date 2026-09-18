@@ -7,6 +7,7 @@ NIST_AI_RMF_MAPPING = {
     ThreatCategory.PROMPT_INJECTION: ["Map", "Measure"],
     ThreatCategory.DATA_EXFILTRATION: ["Measure", "Manage"],
     ThreatCategory.PRIVILEGE_ESCALATION: ["Govern", "Manage"],
+    ThreatCategory.UNEXPECTED_CODE_EXECUTION: ["Govern", "Manage"],
 }
 
 

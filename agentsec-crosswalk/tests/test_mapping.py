@@ -3,6 +3,8 @@ from agentsec_bench.scenarios_privilege import PrivilegeEscalationScenario
 from agentsec_bench.scenarios_exfiltration import CustomerDataExfiltrationScenario
 from agentsec_crosswalk.mapping import crosswalk_entry
 
+from agentsec_bench.scenarios_code_execution import UnexpectedCodeExecutionScenario
+
 
 def test_crosswalk_entry_pulls_real_scenario_metadata():
     scenario = PrivilegeEscalationScenario()
@@ -30,3 +32,11 @@ def test_unmapped_category_returns_empty_list():
 
     entry = crosswalk_entry(FakeScenario())
     assert entry["nist_ai_rmf_functions"] == []
+
+def test_crosswalk_entry_for_code_execution_scenario():
+    scenario = UnexpectedCodeExecutionScenario()
+    entry = crosswalk_entry(scenario)
+    assert entry["scenario_id"] == "CE-001"
+    assert entry["owasp_control_id"] == "ASI05"
+    assert entry["threat_category"] == ThreatCategory.UNEXPECTED_CODE_EXECUTION.value
+    assert "Govern" in entry["nist_ai_rmf_functions"]
