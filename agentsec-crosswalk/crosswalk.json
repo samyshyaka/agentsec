@@ -3,7 +3,7 @@
     {
       "scenario_id": "UTI-001",
       "threat_category": "unauthorized_tool_invocation",
-      "owasp_control_id": "ASI06",
+      "owasp_control_id": "ASI02",
       "nist_ai_rmf_functions": [
         "Govern",
         "Manage"
@@ -12,7 +12,7 @@
     {
       "scenario_id": "UTI-002",
       "threat_category": "unauthorized_tool_invocation",
-      "owasp_control_id": "ASI06",
+      "owasp_control_id": "ASI02",
       "nist_ai_rmf_functions": [
         "Govern",
         "Manage"
@@ -39,7 +39,7 @@
     {
       "scenario_id": "PE-001",
       "threat_category": "privilege_escalation",
-      "owasp_control_id": "ASI06",
+      "owasp_control_id": "ASI03",
       "nist_ai_rmf_functions": [
         "Govern",
         "Manage"
