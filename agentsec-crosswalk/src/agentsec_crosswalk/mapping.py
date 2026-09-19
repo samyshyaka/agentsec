@@ -10,6 +10,7 @@ NIST_AI_RMF_MAPPING = {
     ThreatCategory.UNEXPECTED_CODE_EXECUTION: ["Govern", "Manage"],
     ThreatCategory.ROGUE_AGENT: ["Govern", "Manage"],
     ThreatCategory.MEMORY_CONTEXT_POISONING: ["Map", "Measure"],
+    ThreatCategory.HUMAN_AGENT_TRUST_EXPLOITATION: ["Govern", "Measure"],
 }
 
 def crosswalk_entry(scenario):

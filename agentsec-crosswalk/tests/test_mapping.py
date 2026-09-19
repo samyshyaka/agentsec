@@ -8,6 +8,8 @@ from agentsec_bench.scenarios_rogue import RogueAgentScenario
 
 from agentsec_bench.scenarios_memory_poisoning import MemoryPoisoningScenario
 
+from agentsec_bench.scenarios_trust_exploitation import TrustExploitationScenario
+
 
 def test_crosswalk_entry_pulls_real_scenario_metadata():
     scenario = PrivilegeEscalationScenario()
@@ -59,4 +61,14 @@ def test_crosswalk_entry_for_memory_poisoning_scenario():
     assert entry["owasp_control_id"] == "ASI06"
     assert entry["threat_category"] == ThreatCategory.MEMORY_CONTEXT_POISONING.value
     assert "Map" in entry["nist_ai_rmf_functions"]
+    assert "Measure" in entry["nist_ai_rmf_functions"]
+
+
+def test_crosswalk_entry_for_trust_exploitation_scenario():
+    scenario = TrustExploitationScenario()
+    entry = crosswalk_entry(scenario)
+    assert entry["scenario_id"] == "HT-001"
+    assert entry["owasp_control_id"] == "ASI09"
+    assert entry["threat_category"] == ThreatCategory.HUMAN_AGENT_TRUST_EXPLOITATION.value
+    assert "Govern" in entry["nist_ai_rmf_functions"]
     assert "Measure" in entry["nist_ai_rmf_functions"]

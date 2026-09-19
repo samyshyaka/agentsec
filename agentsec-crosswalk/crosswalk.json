@@ -71,6 +71,15 @@
         "Map",
         "Measure"
       ]
+    },
+    {
+      "scenario_id": "HT-001",
+      "threat_category": "human_agent_trust_exploitation",
+      "owasp_control_id": "ASI09",
+      "nist_ai_rmf_functions": [
+        "Govern",
+        "Measure"
+      ]
     }
   ]
 }
