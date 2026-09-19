@@ -9,8 +9,8 @@ NIST_AI_RMF_MAPPING = {
     ThreatCategory.PRIVILEGE_ESCALATION: ["Govern", "Manage"],
     ThreatCategory.UNEXPECTED_CODE_EXECUTION: ["Govern", "Manage"],
     ThreatCategory.ROGUE_AGENT: ["Govern", "Manage"],
+    ThreatCategory.MEMORY_CONTEXT_POISONING: ["Map", "Measure"],
 }
-
 
 def crosswalk_entry(scenario):
     """Builds one crosswalk row directly from a real AgentSec-Bench scenario instance."""

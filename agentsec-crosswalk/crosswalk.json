@@ -62,6 +62,15 @@
         "Govern",
         "Manage"
       ]
+    },
+    {
+      "scenario_id": "MP-001",
+      "threat_category": "memory_context_poisoning",
+      "owasp_control_id": "ASI06",
+      "nist_ai_rmf_functions": [
+        "Map",
+        "Measure"
+      ]
     }
   ]
 }

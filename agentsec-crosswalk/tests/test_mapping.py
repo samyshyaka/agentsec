@@ -6,6 +6,8 @@ from agentsec_crosswalk.mapping import crosswalk_entry
 from agentsec_bench.scenarios_code_execution import UnexpectedCodeExecutionScenario
 from agentsec_bench.scenarios_rogue import RogueAgentScenario
 
+from agentsec_bench.scenarios_memory_poisoning import MemoryPoisoningScenario
+
 
 def test_crosswalk_entry_pulls_real_scenario_metadata():
     scenario = PrivilegeEscalationScenario()
@@ -49,3 +51,12 @@ def test_crosswalk_entry_for_rogue_agent_scenario():
     assert entry["owasp_control_id"] == "ASI10"
     assert entry["threat_category"] == ThreatCategory.ROGUE_AGENT.value
     assert "Govern" in entry["nist_ai_rmf_functions"]
+
+def test_crosswalk_entry_for_memory_poisoning_scenario():
+    scenario = MemoryPoisoningScenario()
+    entry = crosswalk_entry(scenario)
+    assert entry["scenario_id"] == "MP-001"
+    assert entry["owasp_control_id"] == "ASI06"
+    assert entry["threat_category"] == ThreatCategory.MEMORY_CONTEXT_POISONING.value
+    assert "Map" in entry["nist_ai_rmf_functions"]
+    assert "Measure" in entry["nist_ai_rmf_functions"]
