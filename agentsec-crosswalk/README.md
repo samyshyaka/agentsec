@@ -1,13 +1,19 @@
+# AgentTrace
+
 ## Status
 
-Initial crosswalk implemented and working. Reads AgentSec-Bench's real
-scenario metadata (threat category, OWASP control ID) directly from all
-5 of its scenarios and pairs each with relevant NIST AI RMF function(s)
-(Govern/Map/Measure/Manage), producing a structured `crosswalk.json`.
+Minimal version implemented. Logs and analyzes tool-call sequences using the
+same `ToolCall` trace data already produced by AgentSec-Bench's evaluator.
+Currently flags one hand-defined suspicious pattern — a read-type call
+immediately followed by an external/state-changing action (e.g. `view_user`
+→ `grant_admin`, `lookup_account` → `transfer_funds`) — as a runtime signal
+independent of AgentSec-Bench's own scenario-level checks. Verified against
+real traces from AgentSec-Bench's privilege-escalation scenario and
+CriticalAgent-Blueprints' community-bank scenario. General anomaly detection
+beyond this hand-defined rule is not yet implemented.
 
-Note: AgentSec-Bench's `ThreatCategory` enum currently defines two values
-(prompt injection, unauthorized tool invocation) — scenarios describing
-data exfiltration and privilege escalation are tagged as unauthorized
-tool invocation in the underlying code. This crosswalk reflects the
-actual code, not the broader narrative categories. This is a first-pass
-mapping, not an exhaustive or authoritative compliance mapping.
+## Project layout
+
+- `src/agenttrace/analyzer.py` — the tool-call sequence analyzer that flags the read-then-state-changing-action pattern.
+- `demo.py` — runs the analyzer against real traces pulled from AgentSec-Bench and CriticalAgent-Blueprints.
+- `tests/test_analyzer.py` — test suite for the analyzer.
