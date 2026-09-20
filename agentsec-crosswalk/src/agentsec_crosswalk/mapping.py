@@ -1,4 +1,4 @@
-from agentsec_bench.types import ThreatCategory
+from agentsec_bench.core.types import ThreatCategory
 
 # First-pass mapping from AgentSec-Bench threat categories to NIST AI RMF
 # functions. Not an exhaustive/authoritative compliance mapping.

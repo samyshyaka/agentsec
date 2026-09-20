@@ -1,14 +1,14 @@
-from agentsec_bench.types import ThreatCategory
-from agentsec_bench.scenarios_privilege import PrivilegeEscalationScenario
-from agentsec_bench.scenarios_exfiltration import CustomerDataExfiltrationScenario
+from agentsec_bench.core.types import ThreatCategory
+from agentsec_bench.scenarios.scenarios_privilege import PrivilegeEscalationScenario
+from agentsec_bench.scenarios.scenarios_exfiltration import CustomerDataExfiltrationScenario
 from agentsec_crosswalk.mapping import crosswalk_entry
 
-from agentsec_bench.scenarios_code_execution import UnexpectedCodeExecutionScenario
-from agentsec_bench.scenarios_rogue import RogueAgentScenario
+from agentsec_bench.scenarios.scenarios_code_execution import UnexpectedCodeExecutionScenario
+from agentsec_bench.scenarios.scenarios_rogue import RogueAgentScenario
 
-from agentsec_bench.scenarios_memory_poisoning import MemoryPoisoningScenario
+from agentsec_bench.scenarios.scenarios_memory_poisoning import MemoryPoisoningScenario
 
-from agentsec_bench.scenarios_trust_exploitation import TrustExploitationScenario
+from agentsec_bench.scenarios.scenarios_trust_exploitation import TrustExploitationScenario
 
 
 def test_crosswalk_entry_pulls_real_scenario_metadata():
