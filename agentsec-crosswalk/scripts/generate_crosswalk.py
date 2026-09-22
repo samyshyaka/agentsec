@@ -11,6 +11,7 @@ from agentsec_bench.scenarios.scenarios_memory_poisoning import MemoryPoisoningS
 from agentsec_bench.scenarios.scenarios_trust_exploitation import TrustExploitationScenario
 
 from agentsec_crosswalk.mapping import crosswalk_entry
+from agentsec_crosswalk.gaps import coverage_gap_report
 
 SCENARIOS = [
     UnauthorizedApprovalScenario(),
@@ -38,3 +39,22 @@ with open("crosswalk.json", "w") as f:
     json.dump({"crosswalk": crosswalk}, f, indent=2)
 
 print(f"\nCrosswalk written to crosswalk.json ({len(crosswalk)} scenarios mapped)")
+
+gap_report = coverage_gap_report(crosswalk)
+
+print("\n=== Coverage Gaps ===\n")
+print(f"OWASP ASI controls covered ({len(gap_report['owasp_controls_covered'])}): "
+      f"{', '.join(gap_report['owasp_controls_covered']) or 'none'}")
+print(f"OWASP ASI controls with NO scenario coverage "
+      f"({len(gap_report['owasp_controls_uncovered'])}): "
+      f"{', '.join(gap_report['owasp_controls_uncovered']) or 'none'}")
+print(f"NIST AI RMF functions covered ({len(gap_report['nist_functions_covered'])}): "
+      f"{', '.join(gap_report['nist_functions_covered']) or 'none'}")
+print(f"NIST AI RMF functions with NO scenario coverage "
+      f"({len(gap_report['nist_functions_uncovered'])}): "
+      f"{', '.join(gap_report['nist_functions_uncovered']) or 'none'}")
+
+with open("crosswalk_gaps.json", "w") as f:
+    json.dump(gap_report, f, indent=2)
+
+print("\nGap report written to crosswalk_gaps.json")
