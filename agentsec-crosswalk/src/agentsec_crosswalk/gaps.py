@@ -8,8 +8,13 @@ actually addressed by the benchmark.
 """
 
 # Full OWASP Agentic Security Initiative Top 10 control IDs.
-# NOTE: confirm this list against the actual OWASP ASI reference doc before
-# relying on the gap report - if the real list differs, update this.
+# Verified 2026-09-30 against the official OWASP Top 10 for Agentic
+# Applications (genai.owasp.org, announced Dec 2025): ASI01 Agent Goal
+# Hijack, ASI02 Tool Misuse, ASI03 Identity & Privilege Abuse, ASI04 Agentic
+# Supply Chain Vulnerabilities, ASI05 Unexpected Code Execution, ASI06
+# Memory & Context Poisoning, ASI07 Insecure Inter-Agent Communication,
+# ASI08 Cascading Failures, ASI09 Human-Agent Trust Exploitation, ASI10
+# Rogue Agents.
 ALL_OWASP_ASI_CONTROLS = [
     "ASI01", "ASI02", "ASI03", "ASI04", "ASI05",
     "ASI06", "ASI07", "ASI08", "ASI09", "ASI10",
