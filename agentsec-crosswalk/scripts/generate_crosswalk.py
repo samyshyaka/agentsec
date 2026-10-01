@@ -12,6 +12,7 @@ from agentsec_bench.scenarios.scenarios_trust_exploitation import TrustExploitat
 
 from agentsec_crosswalk.mapping import crosswalk_entry
 from agentsec_crosswalk.gaps import coverage_gap_report
+from agentsec_crosswalk.agentguard_mapping import AGENTGUARD_CONTROLS, agentguard_nist_coverage
 
 SCENARIOS = [
     UnauthorizedApprovalScenario(),
@@ -58,3 +59,17 @@ with open("crosswalk_gaps.json", "w") as f:
     json.dump(gap_report, f, indent=2)
 
 print("\nGap report written to crosswalk_gaps.json")
+
+print("\n=== AgentGuard Control Coverage ===\n")
+agentguard_coverage = agentguard_nist_coverage()
+for control in AGENTGUARD_CONTROLS:
+    print(f"  {control['control']}: {', '.join(control['nist_ai_rmf_functions'])}")
+print("\nNIST AI RMF functions with an AgentGuard control mitigating them:")
+for fn in ["Govern", "Map", "Measure", "Manage"]:
+    controls = agentguard_coverage.get(fn, [])
+    label = ", ".join(controls) if controls else "none"
+    print(f"  {fn}: {label}")
+
+with open("agentguard_crosswalk.json", "w") as f:
+    json.dump({"agentguard_controls": AGENTGUARD_CONTROLS, "nist_coverage": agentguard_coverage}, f, indent=2)
+print("\nAgentGuard control mapping written to agentguard_crosswalk.json")
