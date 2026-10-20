@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+crosswalk.json
+crosswalk_gaps.json
+agentguard_crosswalk.json
