@@ -39,7 +39,7 @@ requires-dist = [
     { name = "agentguard", editable = "../agentguard" },
     { name = "agentsec-crosswalk", editable = "../agentsec-crosswalk" },
     { name = "agentsec-scorecard", editable = "../agentsec-scorecard" },
-    { name = "agenttrace", editable = "../AgentTrace" },
+    { name = "agenttrace", editable = "../agenttrace" },
     { name = "anthropic", specifier = ">=1.5.0" },
     { name = "openai", specifier = ">=3.14.0" },
     { name = "python-dotenv", specifier = ">=1.2.3" },
@@ -75,7 +75,7 @@ dev = [{ name = "pytest", specifier = ">=8.0.0" }]
 [[package]]
 name = "agenttrace"
 version = "0.1.0"
-source = { editable = "../AgentTrace" }
+source = { editable = "../agenttrace" }
 dependencies = [
     { name = "agentsec-bench" },
 ]

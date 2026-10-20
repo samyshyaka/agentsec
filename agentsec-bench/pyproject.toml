@@ -26,7 +26,7 @@ module-root = ""
 
 [tool.uv.sources]
 agentguard = { path = "../agentguard", editable = true }
-agenttrace = { path = "../AgentTrace", editable = true }
+agenttrace = { path = "../agenttrace", editable = true }
 agentsec-scorecard = { path = "../agentsec-scorecard", editable = true }
 agentsec-crosswalk = { path = "../agentsec-crosswalk", editable = true }
 
