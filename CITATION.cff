@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this repository in your research, please cite it as below."
+title: "agentsec: security evaluation and defence tools for tool-using AI agents"
+repository-code: "https://github.com/samyshyaka/agentsec"
+license: MIT
+authors:
+  - family-names: "Oteyo"
+    given-names: "Kelvin"
+  - family-names: "Dushimimana Shyaka"
+    given-names: "Samuel"
