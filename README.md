@@ -37,7 +37,7 @@ Tags are prefixed with the project name, for example `agentsec-bench-v0.2-paper1
 
 ## Citing
 
-If you use AgentSec-Bench in research, please cite the archived release: DOI 10.5281/zenodo.23107266 (v0.1.0). See `agentsec-bench/CITATION.cff` for the full metadata.
+If you use AgentSec, please cite the archived release: DOI 10.5281/zenodo.23965626 (v0.1.0). See `agentsec/CITATION.cff` for the full metadata.
 
 ## Original repositories
 
