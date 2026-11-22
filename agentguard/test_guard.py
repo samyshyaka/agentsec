@@ -23,6 +23,27 @@ def test_correct_role_is_allowed():
     assert result.allowed is True
 
 
+def test_unconfigured_tool_is_allowed_by_default_for_compatibility():
+    guard = AgentGuard([])
+    result = guard.check("new_tool", {}, agent_role="default")
+    assert result.allowed is True
+    assert result.reason == "no policy defined"
+
+
+def test_default_deny_rejects_unconfigured_tools_before_execution():
+    guard = AgentGuard([], default_deny=True)
+    calls = []
+
+    try:
+        guard.enforce("new_tool", {}, "default", lambda: calls.append("ran"))
+        assert False, "expected PermissionError"
+    except PermissionError as error:
+        assert "default deny is enabled" in str(error)
+
+    assert calls == []
+    assert guard.audit_log[-1].allowed is False
+
+
 def test_amount_over_threshold_is_denied():
     guard = _make_guard()
     result = guard.check("approve_payment", {"amount": 5000}, agent_role="finance_manager")

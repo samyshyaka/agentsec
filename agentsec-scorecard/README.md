@@ -25,6 +25,11 @@ Note on interpretation: a high score reflects that known, deliberately-construct
 attack scenarios were caught. It is not a claim of general invulnerability -
 coverage is bounded by the scenarios currently defined in AgentSec-Bench.
 
+The score is calculated from AgentSec-Bench's `attack_succeeded`,
+`unauthorized_tool_calls` and `suspicious_destinations` fields. It does not
+score AgentGuard enforcement outcomes; compare those separately in the
+monorepo demo.
+
 ## Project layout
 
 - `agentsec_scorecard/scorecard.py` - the scoring logic: overall score, per-category breakdown, OWASP coverage, and NIST AI RMF coverage, computed from AgentSec-Bench's `results.json`.

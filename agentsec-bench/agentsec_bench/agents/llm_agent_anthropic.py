@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-from anthropic import Anthropic
 from ..core.agent import Agent
 from ..core.types import Tool, ToolCall
 
@@ -23,6 +22,13 @@ class AnthropicAgent(Agent):
     role = "default"
 
     def __init__(self, model: str = "claude-3-haiku-20240307"):
+        try:
+            from anthropic import Anthropic
+        except ImportError as error:
+            raise RuntimeError(
+                "Anthropic support is optional. Install it with `uv sync --extra live` "
+                "from the monorepo root."
+            ) from error
         self.model = model
         self.client = Anthropic()
 

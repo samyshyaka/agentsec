@@ -1,7 +1,6 @@
 import json
 import os
 from dotenv import load_dotenv
-from openai import OpenAI
 from ..core.agent import Agent
 from ..core.types import Tool, ToolCall
 
@@ -27,6 +26,13 @@ class OpenAIAgent(Agent):
     role = "default"
 
     def __init__(self, model: str = "gpt-4o-mini-2024-07-18"):
+        try:
+            from openai import OpenAI
+        except ImportError as error:
+            raise RuntimeError(
+                "OpenAI support is optional. Install it with `uv sync --extra live` "
+                "from the monorepo root."
+            ) from error
         self.model = model
         self.client = OpenAI()
 

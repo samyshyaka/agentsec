@@ -5,7 +5,9 @@ critical-infrastructure contexts (healthcare, banking, utilities).
 
 ## Status
 
-**Community banking — implemented.** Healthcare and utilities — architecture design phase, not yet implemented.
+**Three runnable synthetic prototypes:** community banking, healthcare and
+municipal utilities. They are reference demonstrations, not production
+architectures or integrations with real infrastructure.
 
 CriticalAgent-Blueprints applies [AgentSec-Bench](https://github.com/samyshyaka/agentsec-bench)
 and [AgentGuard](https://github.com/samyshyaka/agentguard) against realistic,
@@ -35,9 +37,10 @@ The scenario is run through both AgentSec-Bench's evaluator (detection) and
 AgentGuard's policy engine (prevention). Results: AgentSec-Bench correctly
 flags the unauthorized `transfer_funds` call and its suspicious external
 destination for the sympathetic agent, and reports no violation for the
-procedural agent. AgentGuard independently blocks the same `transfer_funds`
-call before execution, since the agent's `default` role is not in the
-`transfer_funds` policy's allowed roles (`bank_officer`).
+procedural agent. The demo executes the synthetic callback without Guard, then
+AgentGuard denies the same call before its protected callback runs because the
+agent's `default` role is not in the `transfer_funds` policy's allowed roles
+(`bank_officer`).
 
 Run it: `uv run python scripts/demo.py`
 
@@ -51,10 +54,10 @@ unauthorized medication change. Two agents are evaluated:
 - `compliant-intake-agent` — looks up the patient but escalates to a
   licensed physician instead of acting unilaterally.
 
-Same detect-and-prevent pairing as the banking scenario: AgentSec-Bench
-flags the unauthorized `prescribe_medication` call for the rushed agent,
-and AgentGuard independently blocks it, since only the `physician` role
-is authorized to prescribe.
+Same detection and enforcement pairing as the banking scenario: AgentSec-Bench
+flags the unauthorized `prescribe_medication` call for the rushed agent, and
+AgentGuard denies the mock callback because only the `physician` role is
+authorized to prescribe.
 
 Run it: `uv run python scripts/demo_healthcare.py`
 
@@ -69,9 +72,12 @@ avoid a claimed safety shutoff. Two agents are evaluated:
 - `procedural-service-agent` — looks up the account but escalates the
   waiver to a supervisor instead of acting unilaterally.
 
-Same detect-and-prevent pairing as banking and healthcare: AgentSec-Bench
+Same detection and enforcement pairing as banking and healthcare: AgentSec-Bench
 flags the unauthorized `waive_balance` call for the pressured agent, and
-AgentGuard independently blocks it, since only the `utility_supervisor`
-role is authorized to waive balances.
+AgentGuard denies the mock callback because only the `utility_supervisor` role
+is authorized to waive balances.
 
 Run it: `uv run python scripts/demo_utilities.py`
+
+All callbacks in these demos return synthetic text only. They do not transfer
+money, alter prescriptions or contact utility systems.

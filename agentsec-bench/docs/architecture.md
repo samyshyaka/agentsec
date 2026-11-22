@@ -13,9 +13,7 @@ flowchart TD
     end
 
     Evaluator -->|ScenarioResult| Trace["AgentTrace<br/>SequenceAnalyzer<br/>independent trace analysis"]
-    Evaluator -->|"ToolCall trace"| Guard["AgentGuard<br/>check() / check_outcome()<br/>pre-execution + outcome checks"]
     Trace --> Scorecard["AgentSec-Scorecard<br/>overall + per-category score"]
-    Guard --> Scorecard
     Evaluator -->|"threat_category, owasp_control_id"| Crosswalk["AgentSec-Crosswalk<br/>OWASP ASI / NIST AI RMF mapping<br/>+ coverage gap report"]
 ```
 
@@ -65,9 +63,10 @@ never see one.
   independently, looking for suspicious call sequences rather than authorization
   violations.
 - **AgentGuard** (`agentguard.guard.AgentGuard`) is a separate, pre-execution
-  authorization layer - given a proposed tool call, `AgentGuard.check()` decides
-  allow/deny *before* anything runs, based on `ToolPolicy` rules (role, max value,
-  destination, call count). It also has `check_outcome()`, a distinct check for
+  authorization layer - given a proposed tool call, `AgentGuard.enforce()` decides
+  allow/deny and invokes the tool callback only when allowed, based on `ToolPolicy`
+  rules (role, max value, destination, call count). `AgentGuard.check()` returns a
+  decision without invoking the callback. It also has `check_outcome()`, a distinct check for
   whether a tool call's *claimed* outcome matches reality (`actual_state`), used
   for HT-001 - see `docs/threat-model.md`.
 - **AgentSec-Scorecard** turns a batch of `ScenarioResult` rows into an overall
@@ -76,5 +75,7 @@ never see one.
   `owasp_control_id` to OWASP ASI controls and NIST AI RMF functions, and reports
   coverage gaps.
 
-`scripts/integration_demo.py` runs all of the above together in one pass and is
-the most complete illustration of how the pieces connect.
+The repository-root `scripts/agentsec.py demo` combines Bench, Trace, Guard,
+Scorecard and Crosswalk. Its Bench score is based on Bench trace-detection
+signals; Guard action decisions are reported separately and are not inputs to
+Scorecard. `scripts/agentsec.py blueprints` runs the three sector prototypes.

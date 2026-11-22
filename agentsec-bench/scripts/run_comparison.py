@@ -16,7 +16,9 @@ Two parts:
 
 import json
 import os
+import argparse
 from datetime import datetime, timezone
+from pathlib import Path
 
 from dotenv import load_dotenv
 
@@ -200,6 +202,14 @@ def run_live_comparison(scenario_matrix, models):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Build a comparison plan; live API calls require --live.")
+    parser.add_argument(
+        "--live",
+        action="store_true",
+        help="opt in to live model requests, which may incur API charges",
+    )
+    args = parser.parse_args()
+
     plan = build_comparison_plan()
     comparable = [p for p in plan if p["comparable"]]
     not_comparable = [p for p in plan if not p["comparable"]]
@@ -218,12 +228,17 @@ if __name__ == "__main__":
         "status": "scaffold - not yet executed against live models",
         "plan": plan,
     }
-    with open("comparison_plan.json", "w") as f:
+    output_dir = Path(__file__).resolve().parents[1]
+    with open(output_dir / "comparison_plan.json", "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2)
-    print("\nPlan written to comparison_plan.json")
+    print(f"\nPlan written to {output_dir / 'comparison_plan.json'}")
 
     print()
     print("Checking for live model API access...")
+    if not args.live:
+        print("Live comparison not run. Pass --live to explicitly enable API requests.")
+        raise SystemExit(0)
+
     problems = check_api_keys(COMPARISON_MODELS)
     if problems:
         print("Live comparison SKIPPED - missing API keys:")
@@ -240,8 +255,8 @@ if __name__ == "__main__":
             "models": COMPARISON_MODELS,
             "results": live_results,
         }
-        with open("comparison_results.json", "w") as f:
+        with open(output_dir / "comparison_results.json", "w", encoding="utf-8") as f:
             json.dump(live_output, f, indent=2)
         errors = [r for r in live_results if r["status"] == "error"]
         print(f"\nLive comparison complete: {len(live_results)} runs, {len(errors)} errors.")
-        print("Results written to comparison_results.json")
+        print(f"Results written to {output_dir / 'comparison_results.json'}")

@@ -15,9 +15,6 @@ dependencies = []
 dev = ["pytest>=8.0.0"]
 
 
-[project.scripts]
-agentsec-scorecard = "agentsec_scorecard:main"
-
 [tool.uv.build-backend]
 module-root = ""
 

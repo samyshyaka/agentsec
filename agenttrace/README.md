@@ -2,13 +2,13 @@
 
 ## Status
 
-Implemented: a typed runtime event model built from AgentSec-Bench's `ScenarioResult`
+Implemented: a typed event model built from AgentSec-Bench's reported `ScenarioResult`
 data (tool calls, authorization decisions, and data-access events - see
 `src/agenttrace/events.py`), plus four detection rules that run against it:
 
 - `READ_THEN_EXTERNAL_ACTION` - a read-type call (e.g. `view_user`, `lookup_account`)
   immediately followed by an external/state-changing action (e.g. `grant_admin`,
-  `transfer_funds`) - a runtime signal independent of AgentSec-Bench's own
+  `transfer_funds`) - a trace signal independent of AgentSec-Bench's own
   scenario-level checks.
 - `UNAUTHORIZED_TOOL_CALL` - a tool call AgentSec-Bench's role-based check marked
   unauthorized.
@@ -18,9 +18,11 @@ data (tool calls, authorization decisions, and data-access events - see
   single run (configurable threshold, default: more than 3 calls) - catches runaway
   loops or repeated exploitation attempts that a single-pass sequence check would miss.
 
-Verified against real traces from AgentSec-Bench's privilege-escalation scenario
-and CriticalAgent-Blueprints' community-bank scenario. General/statistical anomaly
-detection beyond these four hand-defined rules is not yet implemented.
+Verified against scripted traces from AgentSec-Bench's privilege-escalation
+scenario and CriticalAgent-Blueprints' community-bank scenario. These are
+post-hoc rules over reported benchmark traces, not runtime instrumentation.
+General/statistical anomaly detection beyond these four hand-defined rules is
+not yet implemented.
 
 ## Project layout
 

@@ -12,9 +12,6 @@ dependencies = [
     "pyyaml>=6.0.3",
 ]
 
-[project.scripts]
-agentguard = "agentguard:main"
-
 [tool.uv.build-backend]
 module-root = ""
 

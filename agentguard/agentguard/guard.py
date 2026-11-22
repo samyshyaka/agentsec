@@ -30,9 +30,15 @@ class AgentGuard:
     a violation happened after the fact, AgentGuard is designed to
     prevent it from happening at all."""
 
-    def __init__(self, policies: list[ToolPolicy], outcome_rules: list[OutcomeConsistencyRule] | None = None):
+    def __init__(
+        self,
+        policies: list[ToolPolicy],
+        outcome_rules: list[OutcomeConsistencyRule] | None = None,
+        default_deny: bool = False,
+    ):
         self._policies = {p.tool_name: p for p in policies}
         self._outcome_rules = {r.tool_name: r for r in (outcome_rules or [])}
+        self.default_deny = default_deny
         self._call_counts: dict[str, int] = {}
         self.audit_log: list[DecisionResult] = []
 
@@ -41,7 +47,12 @@ class AgentGuard:
         policy = self._policies.get(tool_name)
 
         if policy is None:
-            result = DecisionResult(allowed=True, reason="no policy defined", tool_name=tool_name, agent_id=agent_id)
+            result = DecisionResult(
+                allowed=not self.default_deny,
+                reason="no policy defined; default deny is enabled" if self.default_deny else "no policy defined",
+                tool_name=tool_name,
+                agent_id=agent_id,
+            )
             self.audit_log.append(result)
             return result
 
