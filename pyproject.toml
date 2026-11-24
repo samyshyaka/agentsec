@@ -1,0 +1,34 @@
+[project]
+name = "agentsec-monorepo"
+version = "0.1.0"
+description = "Local development environment for the AgentSec projects"
+requires-python = ">=3.12"
+dependencies = [
+    "agentguard",
+    "agentsec-bench",
+    "agentsec-crosswalk",
+    "agentsec-scorecard",
+    "agenttrace",
+    "criticalagent-blueprints",
+]
+
+[project.optional-dependencies]
+live = [
+    "agentsec-bench[live]",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+agentguard = { path = "agentguard", editable = true }
+agentsec-bench = { path = "agentsec-bench", editable = true }
+agentsec-crosswalk = { path = "agentsec-crosswalk", editable = true }
+agentsec-scorecard = { path = "agentsec-scorecard", editable = true }
+agenttrace = { path = "agenttrace", editable = true }
+criticalagent-blueprints = { path = "criticalagent-blueprints", editable = true }

@@ -16,9 +16,10 @@ This is a more detailed companion to the "Not yet done" section in `README.md`.
   check (`check_outcome`/`enforce_outcome`) is a working mitigation for this,
   wired into `scripts/integration_demo.py`, but it's a separate runtime layer, not
   a fix to AgentSec-Bench's own detection mechanisms.
-- **No live baseline comparison results yet.** The AgentDojo comparison harness
-  is complete and tested end-to-end against real OpenAI/Anthropic APIs, but
-  producing actual results is blocked on funded API credits.
+- **No live baseline comparison results verified here.** The repository has an
+  optional OpenAI/Anthropic comparison path. The current review did not make
+  live API calls; the path requires the `live` extra, explicit `--live` opt-in
+  and funded API access.
 - **Trace-trust assumption.** The evaluator assesses the trace an agent reports,
   not independently-verified environment state (see the "important mechanical
   detail" in `docs/architecture.md`). A scenario or detection mechanism that

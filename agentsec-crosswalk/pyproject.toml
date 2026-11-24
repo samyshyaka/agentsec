@@ -11,20 +11,12 @@ dependencies = [
     "agentsec-bench",
 ]
 
-[project.scripts]
-agentsec-crosswalk = "agentsec_crosswalk:main"
-
 [build-system]
 requires = ["uv_build>=0.12.13,<0.13.0"]
 build-backend = "uv_build"
 
 [tool.uv.sources]
 agentsec-bench = { path = "../agentsec-bench", editable = true }
-
-[tool.uv.workspace]
-members = [
-    "agentsec_crosswalk",
-]
 
 [dependency-groups]
 dev = [

@@ -10,6 +10,7 @@ venv/
 __pycache__/
 *.pyc
 .pytest_cache/
+integration_demo_output/
 # Editors and OS
 .idea/
 .vscode/

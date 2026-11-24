@@ -30,8 +30,8 @@ Working prototype. Currently supports:
 - JSON results export with OWASP control mapping
 - HTML report generation
 - Docker-based reproducibility (Dockerfile provided; not yet build-tested end-to-end on this machine, see Reproducibility section below)
-- Baseline comparison harness against AgentDojo - the comparison plan (which scenarios map to AgentDojo tasks, which test threat categories AgentDojo doesn't cover) runs with no API keys needed. Live execution against real OpenAI and Anthropic agents is fully implemented and has been tested end-to-end against both real APIs (confirmed working - requests are sent and responses/errors are handled correctly). Producing actual comparison results is blocked only on funded API credits, not on any remaining code work.
-- End-to-end integration demo (`scripts/integration_demo.py`) tying together all 6 Open Agent Security Initiative projects in one run: AgentSec-Bench evaluates all 9 scenarios, AgentTrace analyzes every resulting trace, AgentGuard blocks the 4 attack patterns it has policies for before execution, AgentSec-Scorecard scores the run, and AgentSec-Crosswalk reports OWASP ASI / NIST AI RMF coverage gaps.
+- Baseline comparison harness against AgentDojo - the comparison plan (which scenarios map to AgentDojo tasks, which test threat categories AgentDojo doesn't cover) runs locally. Live execution support is optional and requires explicit `--live` opt-in, SDK installation and API keys. No live API calls are made by the default command.
+- End-to-end integration demo (`scripts/integration_demo.py`) tying together AgentSec-Bench, AgentTrace, AgentGuard, AgentSec-Scorecard and AgentSec-Crosswalk. CriticalAgent-Blueprints has separate sector demos and is not wired into this script.
 
 ## Project layout
 
@@ -44,8 +44,8 @@ Working prototype. Currently supports:
 - `check_scenarios.py` - validates scenario ground truth.
 - `generate_report.py` - produces the HTML report.
 - `run_comparison.py` / `comparison_config.py` - baseline comparison harness (builds the AgentDojo comparison plan, and runs live agents against all 9 scenarios once funded API keys are available).
-- `guard_integration_demo.py` - demonstrates AgentGuard blocking a call at runtime that AgentSec-Bench detects after the fact, for 4 of the 9 scenarios.
-- `integration_demo.py` - end-to-end demo across all 6 Open Agent Security Initiative projects (Bench, Trace, Guard, Scorecard, Crosswalk) in a single run; writes its own output under `integration_demo_output/` so it never touches any repo's real tracked results/history files.
+- `guard_integration_demo.py` - executes the same synthetic tool callbacks with AgentGuard disabled and enabled for four scenarios.
+- `integration_demo.py` - Bench + Trace + Guard + Scorecard + Crosswalk demo; writes output under this project's ignored `integration_demo_output/` folder.
 
 ## Known detection gaps
 
@@ -60,7 +60,7 @@ category.
 
 ## Not yet done
 
-- Live baseline comparison results against AgentDojo (harness built and tested end-to-end against real OpenAI/Anthropic APIs; blocked only on funded API credits, not on code)
+- Live baseline comparison results against AgentDojo. Earlier repository notes describe API testing, but live calls were not independently verified during this work. The current command requires the `live` extra, explicit `--live` opt-in and funded API access.
 - Detection coverage for `HT-001` (human/agent trust exploitation) - see "Known detection gaps" above
 - Broader scenario coverage
 
@@ -70,8 +70,30 @@ category.
     uv run python scripts/check_scenarios.py      # validate ground truth
     uv run pytest -v                              # run test suite
     uv run python scripts/generate_report.py      # produce report.html
-    uv run python scripts/run_comparison.py       # build AgentDojo comparison plan; runs live comparison too if API credits are available
-    uv run python scripts/integration_demo.py     # end-to-end demo across all 6 Open Agent Security Initiative projects
+    uv run python scripts/run_comparison.py       # build the plan only; no API calls
+
+From the monorepo root, use the integrated environment and demo:
+
+    uv sync
+    uv run python scripts/agentsec.py demo
+
+Live comparisons are opt-in and may incur charges. From the monorepo root run
+`uv sync --extra live`, then `uv run python agentsec-bench/scripts/run_comparison.py --live`.
+
+To run a live model against the synthetic PI-001 prompt-injection scenario with
+AgentGuard enforcement, run from the monorepo root:
+
+    uv sync --extra live
+    $env:OPENAI_API_KEY = "<your-key>"
+    uv run python agentsec-bench/scripts/live_guard_demo.py --provider openai --model <supported-model-id> --live
+
+For Anthropic, set `ANTHROPIC_API_KEY` and use `--provider anthropic`. By
+default the demo runs independent unprotected and protected model sessions;
+`--mode baseline` or `--mode guarded` runs just one. Only synthetic prompt and
+tool content is sent to the provider, and callbacks are local mocks with no
+external side effects. Requests may incur charges. The trace reports proposed
+actions, while Guard decisions and callback logs show whether the mock action
+ran. Results vary by model and run and are not a security guarantee.
 
 ## Reproducibility
 
@@ -85,9 +107,11 @@ Setup:
     cd agentsec-bench
     uv sync
 
-This installs the exact dependency versions pinned in `uv.lock`, so results should be
-identical across machines. All scenario agents are scripted (not live LLM calls), so
-`scripts/run_test.py` produces the same `results.json` output on every run.
+This installs the exact dependency versions pinned in this project's `uv.lock`.
+All scenario agents are scripted (not live LLM calls), so `scripts/run_test.py`
+produces the same scenario results on every run. To run the multi-project
+integration demo, use the monorepo root environment and command above; it
+installs all six local projects together.
 
 Alternative: a `Dockerfile` is included for running the benchmark in a container
 without installing Python/uv locally:
