@@ -7,7 +7,7 @@ doi: "10.5281/zenodo.23965626"
 repository-code: "https://github.com/samyshyaka/agentsec"
 license: MIT
 authors:
+  - family-names: "Shyaka"
+    given-names: "Samuel Dushimimana"
   - family-names: "Oteyo"
     given-names: "Kelvin"
-  - family-names: "Dushimimana Shyaka"
-    given-names: "Samuel"

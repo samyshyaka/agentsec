@@ -8,9 +8,9 @@ url: "https://github.com/samyshyaka/agentsec-bench"
 repository-code: "https://github.com/samyshyaka/agentsec-bench"
 license: MIT
 authors:
+  - family-names: "Shyaka"
+    given-names: "Samuel Dushimimana"
+    email: "samyshyaka@gmail.com"
   - family-names: "Oteyo"
     given-names: "Kelvin"
     email: "oteyikelvin@gmail.com"
-  - family-names: "Dushimimana Shyaka"
-    given-names: "Samuel"
-    email: "samyshyaka@gmail.com"
