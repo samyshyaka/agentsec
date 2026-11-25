@@ -1,8 +1,22 @@
 # Open Agent Security Initiative
 
-Six related open-source projects for evaluating, monitoring and defending
-tool-using AI agents. The examples use synthetic data and local mock tools.
-Each project keeps its own folder, license, tests and project history.
+Tool-using AI agents can propose unauthorized or unsafe actions, and teams need
+a practical way to test those risks and apply controls.
+
+- Run nine deterministic security scenarios across eight threat categories.
+- Evaluate proposed tool-call traces without executing the tools.
+- Enforce tool authorization, call limits, confirmations and audit decisions.
+- Analyze reported traces with rule-based detections and outcome checks.
+- Summarize detection signals and map scenario coverage to security frameworks.
+- Explore synthetic banking, healthcare and utility agent scenarios.
+
+AgentSec brings together six open-source projects for evaluating and defending
+tool-using AI agents. Examples use synthetic data and local mock tools; each
+project keeps its own folder, license, tests and project history.
+
+AgentGuard's Python enforcement API can be placed around tool execution in
+applications built with LangChain or connected to MCP servers; dedicated
+adapters for either are not included yet.
 
 ## Quick start
 
